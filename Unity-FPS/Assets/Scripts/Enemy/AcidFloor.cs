@@ -11,12 +11,10 @@ public class AcidFloor : MonoBehaviour
     public int damage;
 
     private bool damageOnce = false;
-    //private Rigidbody playerRig;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-        //playerRig = player.GetComponent<Rigidbody>();
     }
 
     private void OnTriggerEnter(Collider playerHitbox)
@@ -27,11 +25,11 @@ public class AcidFloor : MonoBehaviour
         {
             if (!damageOnce)
             {
+                Vector3 dir = new Vector3 (player.transform.position.x,0, player.transform.position.z) - new Vector3(transform.position.x,0, transform.position.z);
                 playerHp.GetComponent<PlayerHealth>().health = playerHp.GetComponent<PlayerHealth>().health - 50;
                 player.GetComponent<CharacterController>().enabled = false;
-                player.transform.position = new Vector3(50, 50, 50);
+                player.transform.position = transform.position - dir * -2f;
                 player.GetComponent<CharacterController>().enabled = true;
-                //playerRig.AddForce(Vector3.back * 2, ForceMode.Impulse);
                 damageOnce = true;
             }
         }
@@ -51,6 +49,6 @@ public class AcidFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
