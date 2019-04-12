@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Fade : MonoBehaviour
 {
     public GameObject image;
-    public float time;
-    public float time2;
 
-    private bool timeON = false;
-    private bool time2ON = false;
-    private bool time3ON = true;
+    public float fadeFromBlackValue = 0;
+    public float keepImageTimer;
+    public float fadeToBlackValue = 1;
+
+    public bool fadeFromBlack = false;
+    public bool fadeToBlack = false;
+    public bool keepImage = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,35 +25,53 @@ public class Fade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeON) time += Time.deltaTime * 0.3f;
-        if (time2ON) time -= Time.deltaTime * 0.3f;
-        if (time3ON) time2 += Time.deltaTime;
-
-        if (time2 >= 3)
+        if (fadeFromBlack)
         {
-            timeON = true;
-            time2ON = false;
-            time2 = 0;
+            fadeFromBlackValue += Time.deltaTime * 0.3f;
+            image.GetComponent<RawImage>().color = new Vector4(1, 1, 1, fadeFromBlackValue);
+        } 
+
+        if (fadeToBlack) 
+        {
+            fadeToBlackValue -= Time.deltaTime * 0.3f;
+            image.GetComponent<RawImage>().color = new Vector4(1, 1, 1, fadeToBlackValue);
         }
 
-        if (time >= 1)
+        if (keepImage)
         {
-            time2 += Time.deltaTime;
-            time = 1;
-            if (time2 >= 3)
+            keepImageTimer += Time.deltaTime;
+            image.GetComponent<RawImage>().color = new Vector4(1, 1, 1, fadeFromBlackValue);
+        } 
+
+        if (keepImageTimer >= 2 && !fadeFromBlack)
+        {
+            keepImage = false;
+            fadeFromBlack = true;
+            keepImageTimer = 0;
+            fadeToBlackValue = 1;
+        }
+
+
+        if(fadeFromBlackValue >= 1 && fadeFromBlack)
+        {
+            keepImage = true;
+            fadeFromBlackValue = 1;
+            if (keepImageTimer >= 2)
             {
-                timeON = false;
-                time2ON = true;
-                time3ON = false;
-                time2 = 0;
-            } 
-        }else if(time <= 0 && !time3ON)
-        {
-            timeON = false;
-            time2ON = false;
-            time3ON = true;
+                fadeToBlack = true;
+                fadeFromBlack = false;
+                keepImage = false;
+                keepImageTimer = 0;
+                fadeToBlackValue = 1;
+            }
         }
-
-        image.GetComponent<RawImage>().color = new Vector4(1, 1, 1, time);
+        else if (fadeToBlackValue <= 0 && !keepImage)
+        {
+            fadeToBlack = false;
+            fadeFromBlack = false;
+            keepImage = false;
+            fadeFromBlackValue = 0;
+            SceneManager.LoadScene("Menu");
+        }
     }
 }
