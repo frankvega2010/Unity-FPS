@@ -14,6 +14,7 @@ public class RandomLevel : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 GameObject newLevel = Instantiate(levelTemplate, new Vector3(20 * i, levelTemplate.transform.position.y, 0), Quaternion.identity);
+                
 
                 int whichLevel = Random.Range(1, 4);
 
