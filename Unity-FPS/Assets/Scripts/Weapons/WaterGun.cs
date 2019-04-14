@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class WaterGun : MonoBehaviour
 {
     public GameObject crosshair;
+    public GameObject points;
     public LayerMask rayCastLayer;
 
     private float rayDistance = 5;
@@ -32,7 +33,11 @@ public class WaterGun : MonoBehaviour
             switch (layerHitted)
             {
                 case "Acid":
-                    if(Input.GetMouseButtonDown(0)) hit.transform.gameObject.SetActive(false);
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        hit.transform.gameObject.SetActive(false);
+                        points.GetComponent<PlayerPoints>().points = points.GetComponent<PlayerPoints>().points + 100;
+                    } 
                     break;
             }
         }
