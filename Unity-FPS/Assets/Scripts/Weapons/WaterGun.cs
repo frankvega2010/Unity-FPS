@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class WaterGun : MonoBehaviour
 {
     public GameObject crosshair;
-    public GameObject points;
+    private GameObject points;
     public LayerMask rayCastLayer;
 
     private float rayDistance = 5;
@@ -15,6 +15,7 @@ public class WaterGun : MonoBehaviour
     void Start()
     {
         defaultCrosshairColor = crosshair.GetComponent<RawImage>().color;
+        points = GameObject.Find("PlayerPoints");
     }
 
     // Update is called once per frame

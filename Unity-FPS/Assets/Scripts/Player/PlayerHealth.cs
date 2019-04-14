@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (timerDeath >= 3)
         {
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Gameplay_End");
             Cursor.lockState = CursorLockMode.None;
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
