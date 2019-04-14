@@ -38,8 +38,9 @@ public class WaterGun : MonoBehaviour
                 case "Acid":
                     if (Input.GetMouseButtonDown(0))
                     {
-                        hit.transform.gameObject.SetActive(false);
+                        hit.transform.gameObject.GetComponent<AcidFloor>().respawn = true;
                         points.GetComponent<PlayerPoints>().points = points.GetComponent<PlayerPoints>().points + 100;
+                        //hit.transform.gameObject.SetActive(false);
                     } 
                     break;
             }

@@ -7,15 +7,27 @@ public class AcidFloor : MonoBehaviour
     public GameObject player;
     public GameObject playerHitbox;
     public GameObject playerHp;
+    public GameObject platform;
     public int damage;
+    public int iterationMultiplier;
 
     private bool damageOnce = false;
     private Rigidbody rig;
+    public float respawnTimer;
+    public bool respawn;
+
+    private float platformX;
+    private float platformY;
+    private float platformZ;
+    private bool switchOnce = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rig = player.GetComponent<Rigidbody>();
+        platformX = platform.transform.position.x;
+        platformY = platform.transform.position.y;
+        platformZ = platform.transform.position.z;
     }
 
     private void OnTriggerEnter(Collider playerHitbox)
@@ -48,6 +60,23 @@ public class AcidFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (respawn)
+        {
+            respawnTimer += Time.deltaTime;
+            if (!switchOnce)
+            {
+                transform.position = new Vector3(transform.position.x, 0.576f - 30, transform.position.z);
+                switchOnce = true;
+            }
+        } 
 
+        if (respawnTimer >= 5)
+        {
+            transform.position = new Vector3(iterationMultiplier * (Random.Range( 7.8f,23.1f)), 0.576f, Random.Range(-7.3f, 7.8f));
+            transform.gameObject.SetActive(true);
+            respawnTimer = 0;
+            respawn = false;
+            switchOnce = false;
+        }
     }
 }

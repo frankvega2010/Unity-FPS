@@ -17,7 +17,7 @@ public class RandomLevel : MonoBehaviour
                 
 
                 int whichLevel = Random.Range(1, 4);
-
+                newLevel.transform.Find("LevelTemplate" + whichLevel).gameObject.transform.Find("Acid").gameObject.GetComponent<AcidFloor>().iterationMultiplier = i + 1;
                 switch (whichLevel)
                 {
                     case 1:
