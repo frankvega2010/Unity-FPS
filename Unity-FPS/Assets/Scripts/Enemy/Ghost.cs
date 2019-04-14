@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
+    public float localRotY;
     public GameObject ball;
     public GameObject player;
     public GameObject playerHp;
@@ -45,7 +46,7 @@ public class Ghost : MonoBehaviour
                     respawn = true;
                     points.GetComponent<PlayerPoints>().points = points.GetComponent<PlayerPoints>().points + 200;
                 }
-                transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+                transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                 damageOnce = true;
             }
         }
@@ -66,7 +67,7 @@ public class Ghost : MonoBehaviour
     {
         if (ball.gameObject.tag == "ball")
         {
-            transform.gameObject.GetComponent<MeshRenderer>().material.color = new Vector4(1, 0, 0, 0.65f);
+            transform.gameObject.GetComponent<MeshRenderer>().material.color = new Vector4(0.2f, 1, 0.2f, 0.65f);
             damageOnce = false;
             //Debug.Log("touched");
         }
@@ -83,6 +84,8 @@ public class Ghost : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        localRotY = (transform.localEulerAngles.y + 360) % 360;
+
         movementTimer += Time.deltaTime;
         transform.position += direction * Time.deltaTime * 2;
 
@@ -120,6 +123,8 @@ public class Ghost : MonoBehaviour
             {
                 case 0:
                     direction = Vector3.forward;
+                    transform.rotation = Quaternion.Euler(0, 270, 0);
+                   // transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
                     movementTimer = 0;
                     canChangeDir = true;
 
@@ -132,6 +137,8 @@ public class Ghost : MonoBehaviour
                     break;
                 case 1:
                     direction = Vector3.back;
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                    //transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
                     movementTimer = 0;
                     canChangeDir = true;
 
@@ -144,6 +151,8 @@ public class Ghost : MonoBehaviour
                     break;
                 case 2:
                     direction = Vector3.left;
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    //transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
                     movementTimer = 0;
                     canChangeDir = true;
 
@@ -156,6 +165,8 @@ public class Ghost : MonoBehaviour
                     break;
                 case 3:
                     direction = Vector3.right;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    //transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
                     movementTimer = 0;
                     canChangeDir = true;
 

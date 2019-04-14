@@ -2327,6 +2327,26 @@ PrefabInstance:
       propertyPath: playerHp
       value: 
       objectReference: {fileID: 1469749909}
+    - target: {fileID: 669238163393639444, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712466152564467901, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1985304945}
+    - target: {fileID: 5712466152564467901, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 784462508}
+    - target: {fileID: 5712466152564467901, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: playerHp
+      value: 
+      objectReference: {fileID: 1469749909}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a72b3acc45f0094aa65f4c7bf731e2c, type: 3}
 --- !u!1001 &2920347331520956057
@@ -2442,6 +2462,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 784462508}
     - target: {fileID: 4466053991436784744, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: playerHp
+      value: 
+      objectReference: {fileID: 1469749909}
+    - target: {fileID: 1487730603465507346, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5508129945026554920, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1985304945}
+    - target: {fileID: 5508129945026554920, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 784462508}
+    - target: {fileID: 5508129945026554920, guid: a23f1b8dfa71ac7489727ff5274cee79,
         type: 3}
       propertyPath: playerHp
       value: 
@@ -2583,6 +2623,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 784462508}
     - target: {fileID: 4970453618603968456, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: playerHp
+      value: 
+      objectReference: {fileID: 1469749909}
+    - target: {fileID: 3088700510923150184, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 788675886998276830, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1985304945}
+    - target: {fileID: 788675886998276830, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 784462508}
+    - target: {fileID: 788675886998276830, guid: c9545e86740aeca4d812e0360304e4c5,
         type: 3}
       propertyPath: playerHp
       value: 
