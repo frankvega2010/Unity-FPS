@@ -28,6 +28,7 @@ public class GhostHunter : MonoBehaviour
 
             newBall.transform.position = transform.position + Camera.main.transform.forward * 2.0f;
             newBallRigidbody.velocity = Camera.main.transform.forward * 40;
+            newBall.GetComponent<GhostHunter_ball>().isFired = true;
             //rig.AddForce(transform.position - dir * -7000);
             //newBallRigidbody.AddForce(dir * 5, ForceMode.Impulse);
             //hit.transform.gameObject.GetComponent<AcidFloor>().respawn = true;
