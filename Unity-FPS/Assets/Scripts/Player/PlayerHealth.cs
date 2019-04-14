@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
     public Text healthText;
     public Text finishText;
     public GameObject panel;
-    public FirstPersonController fpc;
+    public RigidbodyFirstPersonController fpc;
 
     private Vector4 oldPanelColor;
     private bool isGameFinished = false;
@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void playerDeath()
     {
-        fpc.GetComponent<FirstPersonController>().enabled = false;
+        fpc.GetComponent<RigidbodyFirstPersonController>().enabled = false;
         isGameFinished = true;
         finishText.text = "You Lost";
         timerDeath += Time.deltaTime;

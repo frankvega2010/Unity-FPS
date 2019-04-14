@@ -7,6 +7,7 @@ public class WaterGun : MonoBehaviour
 {
     public GameObject crosshair;
     private GameObject points;
+    private GameObject playerHP;
     public LayerMask rayCastLayer;
 
     private float rayDistance = 5;
@@ -16,6 +17,7 @@ public class WaterGun : MonoBehaviour
     {
         defaultCrosshairColor = crosshair.GetComponent<RawImage>().color;
         points = GameObject.Find("PlayerPoints");
+        playerHP = GameObject.Find("PlayerHP");
     }
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class WaterGun : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, rayCastLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, rayCastLayer) && playerHP.GetComponent<PlayerHealth>().health > 0)
         {
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
 
