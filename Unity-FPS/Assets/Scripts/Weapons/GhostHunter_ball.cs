@@ -5,6 +5,7 @@ using UnityEngine;
 public class GhostHunter_ball : MonoBehaviour
 {
     public bool isFired;
+    public int damage;
     private float lifespan;
     // Start is called before the first frame update
     void Start()
