@@ -1201,6 +1201,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 1985304945}
   player: {fileID: 784462508}
+  crosshair: {fileID: 1912456529}
+  rayCastLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!65 &1249500134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1877,7 +1881,7 @@ GameObject:
   - component: {fileID: 1985304951}
   m_Layer: 0
   m_Name: ball
-  m_TagString: Untagged
+  m_TagString: ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1983,6 +1987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFired: 0
+  damage: 10
 --- !u!1001 &2051364780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2297,6 +2302,31 @@ PrefabInstance:
       propertyPath: platform
       value: 
       objectReference: {fileID: 210901544}
+    - target: {fileID: 3416721616964931103, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873331322464804522, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1985304945}
+    - target: {fileID: 6873331322464804522, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: Ghosthealth
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873331322464804522, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 784462508}
+    - target: {fileID: 6873331322464804522, guid: 2a72b3acc45f0094aa65f4c7bf731e2c,
+        type: 3}
+      propertyPath: playerHp
+      value: 
+      objectReference: {fileID: 1469749909}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a72b3acc45f0094aa65f4c7bf731e2c, type: 3}
 --- !u!1001 &2920347331520956057
@@ -2391,6 +2421,31 @@ PrefabInstance:
       propertyPath: platform
       value: 
       objectReference: {fileID: 3471908}
+    - target: {fileID: 3909947158537920690, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466053991436784744, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1985304945}
+    - target: {fileID: 4466053991436784744, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: Ghosthealth
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466053991436784744, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 784462508}
+    - target: {fileID: 4466053991436784744, guid: a23f1b8dfa71ac7489727ff5274cee79,
+        type: 3}
+      propertyPath: playerHp
+      value: 
+      objectReference: {fileID: 1469749909}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23f1b8dfa71ac7489727ff5274cee79, type: 3}
 --- !u!4 &6119215160822362987 stripped
@@ -2507,5 +2562,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4254557399352920924, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970453618603968456, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 1985304945}
+    - target: {fileID: 4970453618603968456, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: Ghosthealth
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970453618603968456, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 784462508}
+    - target: {fileID: 4970453618603968456, guid: c9545e86740aeca4d812e0360304e4c5,
+        type: 3}
+      propertyPath: playerHp
+      value: 
+      objectReference: {fileID: 1469749909}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9545e86740aeca4d812e0360304e4c5, type: 3}
