@@ -70,7 +70,7 @@ public class AcidFloor : MonoBehaviour
             }
         } 
 
-        if (respawnTimer >= 5)
+        if (respawnTimer >= 10)
         {
             transform.position = new Vector3(iterationMultiplier * (Random.Range( 7.8f,23.1f)), 0.576f, Random.Range(-7.3f, 7.8f));
             transform.gameObject.SetActive(true);
