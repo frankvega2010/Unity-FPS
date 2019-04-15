@@ -9,7 +9,10 @@ public class WaterGun : MonoBehaviour
     private GameObject points;
     private GameObject playerHP;
     public LayerMask rayCastLayer;
+    public int ammo = 5;
 
+    public float reloadTimer;
+    public bool reloading = false;
     private float rayDistance = 5;
     private Color defaultCrosshairColor;
     // Start is called before the first frame update
@@ -18,11 +21,28 @@ public class WaterGun : MonoBehaviour
         defaultCrosshairColor = crosshair.GetComponent<RawImage>().color;
         points = GameObject.Find("PlayerPoints");
         playerHP = GameObject.Find("PlayerHP");
+        ammo = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (reloading)
+        {
+            reloadTimer += Time.deltaTime;
+            if (reloadTimer >= 1.5f)
+            {
+                ammo = 5;
+                reloadTimer = 0;
+                reloading = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            reloading = true;
+        }
+
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, rayCastLayer) && playerHP.GetComponent<PlayerHealth>().health > 0)
@@ -36,11 +56,11 @@ public class WaterGun : MonoBehaviour
             switch (layerHitted)
             {
                 case "Acid":
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && ammo > 0 && !reloading)
                     {
                         hit.transform.gameObject.GetComponent<AcidFloor>().respawn = true;
                         points.GetComponent<PlayerPoints>().points = points.GetComponent<PlayerPoints>().points + 100;
-                        //hit.transform.gameObject.SetActive(false);
+                        ammo--;
                     } 
                     break;
             }

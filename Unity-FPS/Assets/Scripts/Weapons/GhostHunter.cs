@@ -9,8 +9,11 @@ public class GhostHunter : MonoBehaviour
     public GameObject player;
     public GameObject crosshair;
     public LayerMask rayCastLayer;
+    public int ammo = 0;
     private GameObject playerHP;
 
+    public float reloadTimer;
+    public bool reloading = false;
     private float rayDistance = 10;
     private Color defaultCrosshairColor;
 
@@ -21,12 +24,29 @@ public class GhostHunter : MonoBehaviour
         ball.GetComponent<SphereCollider>().enabled = false;
         playerHP = GameObject.Find("PlayerHP");
         defaultCrosshairColor = crosshair.GetComponent<RawImage>().color;
+        ammo = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(reloading)
+        {
+            reloadTimer += Time.deltaTime;
+            if (reloadTimer >= 2)
+            {
+                ammo = 10;
+                reloadTimer = 0;
+                reloading = false;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            reloading = true;
+        }
+
+        if (Input.GetMouseButtonDown(0) && ammo > 0 && !reloading)
         {
             ball.SetActive(true);
             GameObject newBall = Instantiate(ball, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
@@ -39,6 +59,7 @@ public class GhostHunter : MonoBehaviour
             newBallRigidbody.velocity = Camera.main.transform.forward * 40;
             newBall.GetComponent<GhostHunter_ball>().isFired = true;
 
+            ammo--;
             //rig.AddForce(transform.position - dir * -7000);
             //newBallRigidbody.AddForce(dir * 5, ForceMode.Impulse);
             //hit.transform.gameObject.GetComponent<AcidFloor>().respawn = true;
