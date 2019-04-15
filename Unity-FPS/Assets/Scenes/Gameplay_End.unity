@@ -562,7 +562,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 66
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -593,7 +593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 314, y: -98}
+  m_AnchoredPosition: {x: 1.3, y: -177.5}
   m_SizeDelta: {x: 518.7, y: 166.7}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &977334429
@@ -765,7 +765,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 2.3, y: -98}
+  m_AnchoredPosition: {x: 100.6, y: -98}
   m_SizeDelta: {x: 518.7, y: 166.7}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1115728789
@@ -846,7 +846,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.03137255, g: 0.27450982, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -1199,7 +1199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsText: {fileID: 865832630}
-  points: {fileID: 676120390}
   isMatchOver: 1
 --- !u!4 &1664363517
 Transform:
