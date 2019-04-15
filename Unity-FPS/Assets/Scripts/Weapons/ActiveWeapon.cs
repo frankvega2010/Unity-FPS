@@ -14,8 +14,6 @@ public class ActiveWeapon : MonoBehaviour
 
     private bool ghostHunterActive = false;
     private bool waterGunActive = false;
-    private bool ghostHunterNeedsReload = false;
-    private bool waterGunNeedsReload = false;
 
     // Start is called before the first frame update
     void Start()

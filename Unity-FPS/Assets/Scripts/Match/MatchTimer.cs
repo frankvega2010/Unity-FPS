@@ -3,50 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
 using UnityStandardAssets.Characters.FirstPerson;
 
-public class PlayerHealth : MonoBehaviour
+public class MatchTimer : MonoBehaviour
 {
-    public int health;
-    public Text healthText;
+    public Text matchTime;
+    public float matchCountdown;
+    public GameObject playerHealth;
+    private float timerLoadScene;
+
     public Text finishText;
     public GameObject panel;
     public RigidbodyFirstPersonController fpc;
 
     private Vector4 oldPanelColor;
-    public bool isGameFinished = false;
-    private float timerDeath = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        oldPanelColor = panel.GetComponent<Image>().color;
+        oldPanelColor = new Vector4(0, 0, 0, 0.7f);
         panel.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
     }
 
-    private void playerDeath()
+    public void playerWin()
     {
         fpc.GetComponent<RigidbodyFirstPersonController>().enabled = false;
-        isGameFinished = true;
-        finishText.text = "You Lost";
-        timerDeath += Time.deltaTime;
+        playerHealth.GetComponent<PlayerHealth>().isGameFinished = true;
+        finishText.text = "You Won!";
+        finishText.color = Color.green;
+        timerLoadScene += Time.deltaTime;
         panel.GetComponent<Image>().color = oldPanelColor;
 
-        if (timerDeath >= 3)
+        if (timerLoadScene >= 3)
         {
             SceneManager.LoadScene("Gameplay_End");
             Cursor.lockState = CursorLockMode.None;
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-        } 
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthText.text = "HP: " + health;
-        if (!isGameFinished) finishText.text = "";
+        if(!playerHealth.GetComponent<PlayerHealth>().isGameFinished) matchCountdown -= Time.deltaTime;
 
-        if (health <= 0) playerDeath();
+        matchTime.text = "Time Left: " + (int)matchCountdown;
+
+        if (matchCountdown <= 0) playerWin();
     }
 }
