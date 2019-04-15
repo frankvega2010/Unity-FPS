@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class PlayerPointsText : MonoBehaviour
 {
     public Text pointsText;
-    private GameObject points;
-
     public bool isMatchOver = false;
+
+    private GameObject points;
     // Start is called before the first frame update
     void Start()
     {

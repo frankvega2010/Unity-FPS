@@ -22,7 +22,6 @@ public class GhostHunter_ball : MonoBehaviour
             if(lifespan >= 5)
             {
                 Destroy(gameObject);
-                //transform.gameObject.SetActive(false);
                 lifespan = 0;
                 isFired = false;
             }

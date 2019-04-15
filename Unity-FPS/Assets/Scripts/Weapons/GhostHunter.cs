@@ -10,13 +10,12 @@ public class GhostHunter : MonoBehaviour
     public GameObject crosshair;
     public LayerMask rayCastLayer;
     public int ammo = 0;
-    private GameObject playerHP;
-
     public float reloadTimer;
     public bool reloading = false;
+
     private float rayDistance = 10;
     private Color defaultCrosshairColor;
-
+    private GameObject playerHP;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,11 +59,6 @@ public class GhostHunter : MonoBehaviour
             newBall.GetComponent<GhostHunter_ball>().isFired = true;
 
             ammo--;
-            //rig.AddForce(transform.position - dir * -7000);
-            //newBallRigidbody.AddForce(dir * 5, ForceMode.Impulse);
-            //hit.transform.gameObject.GetComponent<AcidFloor>().respawn = true;
-            //points.GetComponent<PlayerPoints>().points = points.GetComponent<PlayerPoints>().points + 100;
-            //hit.transform.gameObject.SetActive(false);
         }
 
         RaycastHit hit;

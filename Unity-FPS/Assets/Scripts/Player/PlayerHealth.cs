@@ -13,9 +13,9 @@ public class PlayerHealth : MonoBehaviour
     public Text finishText;
     public GameObject panel;
     public RigidbodyFirstPersonController fpc;
+    public bool isGameFinished = false;
 
     private Vector4 oldPanelColor;
-    public bool isGameFinished = false;
     private float timerDeath = 0.0f;
     // Start is called before the first frame update
     void Start()

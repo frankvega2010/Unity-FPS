@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    public float localRotY;
+    public float respawnTimer;
     public GameObject ball;
     public GameObject player;
     public GameObject playerHp;
     public int iterationMultiplier;
     public int Ghosthealth = 30;
     public bool respawn;
-    public float respawnTimer;
+
     private float movementTimer;
     private Vector3 direction;
     private bool canChangeDir = true;
@@ -86,12 +86,9 @@ public class Ghost : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        localRotY = (transform.localEulerAngles.y + 360) % 360;
-
         movementTimer += Time.deltaTime;
         transform.position += direction * Time.deltaTime * 2;
 
-        //transform.position = new Vector3(iterationMultiplier * (Random.Range( 7.8f,23.1f)), 0.576f, Random.Range(-7.3f, 7.8f));
         if (transform.position.x >= 24.2f * iterationMultiplier)
         {
             movementTimer = 5;
@@ -125,8 +122,7 @@ public class Ghost : MonoBehaviour
             {
                 case 0:
                     direction = Vector3.forward;
-                    transform.rotation = Quaternion.Euler(0, 0, 0); // 0
-                   // transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
                     movementTimer = 0;
                     canChangeDir = true;
 
@@ -139,8 +135,7 @@ public class Ghost : MonoBehaviour
                     break;
                 case 1:
                     direction = Vector3.back;
-                    transform.rotation = Quaternion.Euler(0, 180, 0); //180
-                    //transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
                     movementTimer = 0;
                     canChangeDir = true;
 
@@ -154,7 +149,6 @@ public class Ghost : MonoBehaviour
                 case 2:
                     direction = Vector3.left;
                     transform.rotation = Quaternion.Euler(0, 270, 0);
-                    //transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
                     movementTimer = 0;
                     canChangeDir = true;
 
@@ -168,7 +162,6 @@ public class Ghost : MonoBehaviour
                 case 3:
                     direction = Vector3.right;
                     transform.rotation = Quaternion.Euler(0, 90, 0);
-                    //transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
                     movementTimer = 0;
                     canChangeDir = true;
 
@@ -197,7 +190,6 @@ public class Ghost : MonoBehaviour
         if (respawnTimer >= 10)
         {
             transform.position = new Vector3(iterationMultiplier * (Random.Range(6.5f, 24.2f)), transform.position.y + 30, Random.Range(-8.6f, 9.4f));
-            //transform.gameObject.SetActive(true);
             respawnTimer = 0;
             respawn = false;
             switchOnce = false;

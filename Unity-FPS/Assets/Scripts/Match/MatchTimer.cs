@@ -8,16 +8,14 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class MatchTimer : MonoBehaviour
 {
     public Text matchTime;
+    public Text finishText;
     public float matchCountdown;
     public GameObject playerHealth;
-    private float timerLoadScene;
-
-    public Text finishText;
     public GameObject panel;
     public RigidbodyFirstPersonController fpc;
 
     private Vector4 oldPanelColor;
-
+    private float timerLoadScene;
     // Start is called before the first frame update
     void Start()
     {

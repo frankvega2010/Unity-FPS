@@ -10,9 +10,6 @@ public class AcidFloor : MonoBehaviour
     public GameObject platform;
     public int damage;
     public int iterationMultiplier;
-
-    private bool damageOnce = false;
-    private Rigidbody rig;
     public float respawnTimer;
     public bool respawn;
 
@@ -20,6 +17,8 @@ public class AcidFloor : MonoBehaviour
     private float platformY;
     private float platformZ;
     private bool switchOnce = false;
+    private bool damageOnce = false;
+    private Rigidbody rig;
 
     // Start is called before the first frame update
     void Start()
@@ -32,8 +31,6 @@ public class AcidFloor : MonoBehaviour
 
     private void OnTriggerEnter(Collider playerHitbox)
     {
-        //Debug.Log("piso");
-
         if (playerHitbox.gameObject.tag == "Player")
         {
             if (!damageOnce)

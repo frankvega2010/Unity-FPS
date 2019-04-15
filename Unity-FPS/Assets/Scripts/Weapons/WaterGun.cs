@@ -10,9 +10,9 @@ public class WaterGun : MonoBehaviour
     private GameObject playerHP;
     public LayerMask rayCastLayer;
     public int ammo = 5;
-
     public float reloadTimer;
     public bool reloading = false;
+
     private float rayDistance = 5;
     private Color defaultCrosshairColor;
     // Start is called before the first frame update
