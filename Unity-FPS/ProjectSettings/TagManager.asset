@@ -8,6 +8,7 @@ TagManager:
   - level1
   - level2
   - ball
+  - Ghost
   layers:
   - Default
   - TransparentFX

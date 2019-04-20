@@ -14,6 +14,21 @@ public class PlayerPoints : MonoBehaviour
         return instance;
     }
 
+    public void addPoints(System.String name)
+    {
+        switch (name)
+        {
+            case "Acid":
+                points = points + 100;
+                break;
+            case "Ghost":
+                points = points + 200;
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Awake()
     {
         if (instance != null)
@@ -24,11 +39,5 @@ public class PlayerPoints : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

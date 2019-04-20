@@ -15,13 +15,17 @@ public class GhostHunter : MonoBehaviour
 
     private float rayDistance = 10;
     private Color defaultCrosshairColor;
-    private GameObject playerHP;
+    private UIPlayerHealth playerHP;
+    private PlayerPoints playerPoints;
+    private RawImage crosshairImage;
     // Start is called before the first frame update
     void Start()
     {
         ball.GetComponent<MeshRenderer>().enabled = false;
         ball.GetComponent<SphereCollider>().enabled = false;
-        playerHP = GameObject.Find("PlayerHP");
+        playerHP = UIPlayerHealth.Get();
+        playerPoints = PlayerPoints.Get();
+        crosshairImage = crosshair.GetComponent<RawImage>();
         defaultCrosshairColor = crosshair.GetComponent<RawImage>().color;
         ammo = 10;
     }
@@ -63,16 +67,16 @@ public class GhostHunter : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, rayCastLayer) && playerHP.GetComponent<PlayerHealth>().health > 0)
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, rayCastLayer) && playerHP.health > 0)
         {
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
 
-            crosshair.GetComponent<RawImage>().color = Color.green;
+            crosshairImage.color = Color.green;
         }
         else
         {
             Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.white);
-            crosshair.GetComponent<RawImage>().color = defaultCrosshairColor;
+            crosshairImage.color = defaultCrosshairColor;
         }
     }
 }

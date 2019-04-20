@@ -6,21 +6,21 @@ using UnityEngine.UI;
 public class WaterGun : MonoBehaviour
 {
     public GameObject crosshair;
-    private GameObject points;
-    private GameObject playerHP;
     public LayerMask rayCastLayer;
     public int ammo = 5;
     public float reloadTimer;
     public bool reloading = false;
 
     private float rayDistance = 5;
+    private UIPlayerHealth playerHP;
     private Color defaultCrosshairColor;
+    private RawImage crosshairImage;
     // Start is called before the first frame update
     void Start()
     {
         defaultCrosshairColor = crosshair.GetComponent<RawImage>().color;
-        points = GameObject.Find("PlayerPoints");
-        playerHP = GameObject.Find("PlayerHP");
+        playerHP = UIPlayerHealth.Get();
+        crosshairImage = crosshair.GetComponent<RawImage>();
         ammo = 5;
     }
 
@@ -45,30 +45,31 @@ public class WaterGun : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, rayCastLayer) && playerHP.GetComponent<PlayerHealth>().health > 0)
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, rayCastLayer) && playerHP.health > 0)
         {
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
 
             string layerHitted = LayerMask.LayerToName(hit.transform.gameObject.layer);
 
-            crosshair.GetComponent<RawImage>().color = Color.green;
+            crosshairImage.color = Color.green;
+
+            AcidFloor acidEnemy = hit.transform.gameObject.GetComponent<AcidFloor>();
 
             switch (layerHitted)
             {
                 case "Acid":
                     if (Input.GetMouseButtonDown(0) && ammo > 0 && !reloading)
                     {
-                        hit.transform.gameObject.GetComponent<AcidFloor>().respawn = true;
-                        points.GetComponent<PlayerPoints>().points = points.GetComponent<PlayerPoints>().points + 100;
+                        acidEnemy.isHit();
                         ammo--;
-                    } 
+                    }
                     break;
             }
         }
         else
         {
             Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.white);
-            crosshair.GetComponent<RawImage>().color = defaultCrosshairColor;
+            crosshairImage.color = defaultCrosshairColor;
         }
     }
 }

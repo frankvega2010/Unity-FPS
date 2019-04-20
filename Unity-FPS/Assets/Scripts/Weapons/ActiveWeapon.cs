@@ -5,21 +5,29 @@ using UnityEngine.UI;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    public GameObject waterGun_prop;
-    public GameObject waterGun;
-    public GameObject ghostHunter_prop;
-    public GameObject ghostHunter;
+    public GameObject waterGunModel;
+    public GameObject waterGunGO;
+    public GameObject ghostHunterModel;
+    public GameObject ghostHunterGO;
     public Text currentWeaponText;
     public Text currentAmmoText;
 
+    private WaterGun waterGun;
+    private GhostHunter ghostHunter;
     private bool ghostHunterActive = false;
     private bool waterGunActive = false;
+    private Color defaultColor;
+    private Color reloadColor;
 
     // Start is called before the first frame update
     void Start()
     {
+        waterGun = waterGunGO.GetComponent<WaterGun>();
+        ghostHunter = ghostHunterGO.GetComponent<GhostHunter>();
         currentWeaponText.text = "Current Weapon: Water Gun 2.0";
         currentAmmoText.text = "Ammo: " + waterGun.GetComponent<WaterGun>().ammo;
+        defaultColor = currentAmmoText.color;
+        reloadColor = new Vector4(1f, 0.2f, 0.2f, 1f);
     }
 
     // Update is called once per frame
@@ -27,28 +35,60 @@ public class ActiveWeapon : MonoBehaviour
     {
         if(waterGunActive)
         {
-            if (waterGun.GetComponent<WaterGun>().ammo > 0)
+            if (waterGun.ammo > 0)
             {
-                if (!waterGun.GetComponent<WaterGun>().reloading) currentAmmoText.text = "Ammo: " + waterGun.GetComponent<WaterGun>().ammo;
-                else currentAmmoText.text = "Ammo: RELOADING..";
+                if (!waterGun.reloading)
+                {
+                    currentAmmoText.text = "Ammo: " + waterGun.ammo;
+                    currentAmmoText.color = defaultColor;
+                }
+                else
+                {
+                    currentAmmoText.text = "Ammo: RELOADING..";
+                    currentAmmoText.color = Color.green;
+                }
             } 
-            else if (waterGun.GetComponent<WaterGun>().ammo <= 0)
+            else if (waterGun.ammo <= 0)
             {
-                if(!waterGun.GetComponent<WaterGun>().reloading) currentAmmoText.text = "Ammo: RELOAD!";
-                else currentAmmoText.text = "Ammo: RELOADING..";
+                if (!waterGun.reloading)
+                {
+                    currentAmmoText.text = "Ammo: RELOAD!";
+                    currentAmmoText.color = reloadColor;
+                }
+                else
+                {
+                    currentAmmoText.text = "Ammo: RELOADING..";
+                    currentAmmoText.color = Color.green;
+                }
             }
         }
         else if(ghostHunterActive)
         {
-            if (ghostHunter.GetComponent<GhostHunter>().ammo > 0)
+            if (ghostHunter.ammo > 0)
             {
-                if (!ghostHunter.GetComponent<GhostHunter>().reloading) currentAmmoText.text = "Ammo: " + ghostHunter.GetComponent<GhostHunter>().ammo;
-                else currentAmmoText.text = "Ammo: RELOADING..";
+                if (!ghostHunter.reloading)
+                {
+                    currentAmmoText.text = "Ammo: " + ghostHunter.ammo;
+                    currentAmmoText.color = defaultColor;
+                }
+                else
+                {
+                    currentAmmoText.text = "Ammo: RELOADING..";
+                    currentAmmoText.color = Color.green;
+                } 
             } 
-            else if (ghostHunter.GetComponent<GhostHunter>().ammo <= 0)
+            else if (ghostHunter.ammo <= 0)
             {
-                if (!ghostHunter.GetComponent<GhostHunter>().reloading) currentAmmoText.text = "Ammo: RELOAD!";
-                else currentAmmoText.text = "Ammo: RELOADING..";
+                if (!ghostHunter.reloading)
+                {
+                    currentAmmoText.text = "Ammo: RELOAD!";
+                    currentAmmoText.color = reloadColor;
+                }
+                else
+                {
+                    currentAmmoText.text = "Ammo: RELOADING..";
+                    currentAmmoText.color = Color.green;
+                } 
             }
         }
 
@@ -56,10 +96,10 @@ public class ActiveWeapon : MonoBehaviour
         {
             waterGunActive = true;
             ghostHunterActive = false;
-            waterGun.SetActive(true);
-            waterGun_prop.SetActive(true);
-            ghostHunter.SetActive(false);
-            ghostHunter_prop.SetActive(false);
+            waterGunGO.SetActive(true);
+            waterGunModel.SetActive(true);
+            ghostHunterGO.SetActive(false);
+            ghostHunterModel.SetActive(false);
             currentWeaponText.text = "Current Weapon: Water Gun 2.0";
             
         }
@@ -68,10 +108,10 @@ public class ActiveWeapon : MonoBehaviour
         {
             waterGunActive = false;
             ghostHunterActive = true;
-            waterGun.SetActive(false);
-            waterGun_prop.SetActive(false);
-            ghostHunter.SetActive(true);
-            ghostHunter_prop.SetActive(true);
+            waterGunGO.SetActive(false);
+            waterGunModel.SetActive(false);
+            ghostHunterGO.SetActive(true);
+            ghostHunterModel.SetActive(true);
             currentWeaponText.text = "Current Weapon: Ghost Hunter X";
             
         }

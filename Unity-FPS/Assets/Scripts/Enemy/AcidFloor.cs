@@ -6,27 +6,36 @@ public class AcidFloor : MonoBehaviour
 {
     public GameObject player;
     public GameObject playerHitbox;
-    public GameObject playerHp;
+    public UIPlayerHealth playerHp;
     public GameObject platform;
     public int damage;
-    public int iterationMultiplier;
     public float respawnTimer;
+    public float rangeFromX;
+    public float rangeToX;
+    public float rangeFromZ;
+    public float rangeToZ;
+    public float defaultYPos;
     public bool respawn;
 
-    private float platformX;
-    private float platformY;
-    private float platformZ;
+    private int force;
     private bool switchOnce = false;
     private bool damageOnce = false;
     private Rigidbody rig;
+    private PlayerPoints playerPoints;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerPoints = PlayerPoints.Get();
+        playerHp = UIPlayerHealth.Get();
         rig = player.GetComponent<Rigidbody>();
-        platformX = platform.transform.position.x;
-        platformY = platform.transform.position.y;
-        platformZ = platform.transform.position.z;
+        force = -7000;
+    }
+
+    public void isHit()
+    {
+        respawn = true;
+        playerPoints.points = playerPoints.points + 100;
     }
 
     private void OnTriggerEnter(Collider playerHitbox)
@@ -35,9 +44,11 @@ public class AcidFloor : MonoBehaviour
         {
             if (!damageOnce)
             {
-                Vector3 dir = new Vector3 (player.transform.position.x,0, player.transform.position.z) - new Vector3(transform.position.x,0, transform.position.z);
-                playerHp.GetComponent<PlayerHealth>().health = playerHp.GetComponent<PlayerHealth>().health - 50;
-                rig.AddForce(transform.position - dir * -7000);
+                Vector3 dir = new Vector3 (player.transform.position.x,0, player.transform.position.z) - 
+                              new Vector3(transform.position.x,0, transform.position.z);
+
+                playerHp.health = playerHp.health - damage;
+                rig.AddForce(transform.position - dir * force);
                 damageOnce = true;
             }
         }
@@ -62,14 +73,18 @@ public class AcidFloor : MonoBehaviour
             respawnTimer += Time.deltaTime;
             if (!switchOnce)
             {
-                transform.position = new Vector3(transform.position.x, 0.576f - 30, transform.position.z);
+                transform.localPosition = 
+                new Vector3(transform.localPosition.x, transform.localPosition.y - 30, transform.localPosition.z);
+
                 switchOnce = true;
             }
         } 
 
         if (respawnTimer >= 10)
         {
-            transform.position = new Vector3(iterationMultiplier * (Random.Range( 7.8f,23.1f)), 0.576f, Random.Range(-7.3f, 7.8f));
+            transform.localPosition = 
+            new Vector3(Random.Range( rangeFromX,rangeToX), defaultYPos, Random.Range(rangeFromZ, rangeToZ));
+
             transform.gameObject.SetActive(true);
             respawnTimer = 0;
             respawn = false;

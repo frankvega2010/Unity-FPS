@@ -4,61 +4,69 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    public float respawnTimer;
     public GameObject ball;
     public GameObject player;
     public GameObject playerHp;
-    public int iterationMultiplier;
     public int Ghosthealth = 30;
+    public float respawnTimer;
+    public float rangeFromX;
+    public float rangeToX;
+    public float rangeFromZ;
+    public float rangeToZ;
     public bool respawn;
 
-    private float movementTimer;
     private Vector3 direction;
+    private float movementTimer;
+    private int whichDirection = 0;
     private bool canChangeDir = true;
     private bool damageOnce = false;
     private bool damagePlayerOnce = false;
     private bool switchOnce = false;
-    private int whichDirection = 0;
-    private GameObject points;
     private Rigidbody rig;
     private Color defaultColor;
-    
-
+    private PlayerPoints playerPoints;
+    private GhostHunter_ball GhostHunterProjectile;
+    private MeshRenderer ghostModel;
+    private UIPlayerHealth playerStatus;
 
     // Start is called before the first frame update
     void Start()
     {
-        points = GameObject.Find("PlayerPoints");
-        movementTimer = 5;
-        rig = player.GetComponent<Rigidbody>();
+        playerPoints = PlayerPoints.Get();
         defaultColor = transform.gameObject.GetComponent<MeshRenderer>().material.color;
+        GhostHunterProjectile = ball.gameObject.GetComponent<GhostHunter_ball>();
+        ghostModel = transform.gameObject.GetComponent<MeshRenderer>();
+        rig = player.GetComponent<Rigidbody>();
+        playerStatus = playerHp.GetComponent<UIPlayerHealth>();
+
+        movementTimer = 5;
     }
 
-    public void OnCollisionEnter(Collision ball)
+    public void isHit()
     {
-        //Debug.Log("touched");
-        if(ball.gameObject.tag == "ball")
+        if (!damageOnce)
         {
-            if (!damageOnce)
+            Ghosthealth = Ghosthealth - GhostHunterProjectile.damage;
+            if (Ghosthealth <= 0)
             {
-                Ghosthealth = Ghosthealth - ball.gameObject.GetComponent<GhostHunter_ball>().damage;
-                if (Ghosthealth <= 0)
-                {
-                    //transform.gameObject.SetActive(false);
-                    respawn = true;
-                    points.GetComponent<PlayerPoints>().points = points.GetComponent<PlayerPoints>().points + 200;
-                }
-                transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-                damageOnce = true;
+                respawn = true;
+                playerPoints.points = playerPoints.points + 200;
             }
+            ghostModel.material.color = Color.red;
+            damageOnce = true;
         }
+    }
 
+    public void OnCollisionEnter(Collision player)
+    {
         if (player.gameObject.tag == "Player")
         {
             if (!damageOnce)
             {
-                Vector3 dir = new Vector3(player.transform.position.x, 0, player.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z);
-                playerHp.GetComponent<PlayerHealth>().health = playerHp.GetComponent<PlayerHealth>().health - 10;
+                Vector3 dir = new Vector3(player.transform.position.x, 0, player.transform.position.z) - 
+                              new Vector3(transform.position.x, 0, transform.position.z);
+
+                playerStatus.health = playerStatus.health - 10;
                 rig.AddForce(transform.position - dir * -7000);
                 damagePlayerOnce = true;
             }
@@ -71,7 +79,6 @@ public class Ghost : MonoBehaviour
         {
             transform.gameObject.GetComponent<MeshRenderer>().material.color = defaultColor;
             damageOnce = false;
-            //Debug.Log("touched");
         }
 
         if (player.gameObject.tag == "Player")
@@ -87,27 +94,27 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         movementTimer += Time.deltaTime;
-        transform.position += direction * Time.deltaTime * 2;
+        transform.localPosition += direction * Time.deltaTime * 2;
 
-        if (transform.position.x >= 24.2f * iterationMultiplier)
+        if (transform.localPosition.x >= rangeToX)
         {
             movementTimer = 5;
             canChangeDir = false;
             whichDirection = 2;
         } 
-        if (transform.position.x <= 6.5f * iterationMultiplier)
+        if (transform.localPosition.x <= rangeFromX)
         {
             movementTimer = 5;
             canChangeDir = false;
             whichDirection = 3;
         }
-        if (transform.position.z >= 9.4f)
+        if (transform.localPosition.z >= rangeToZ)
         {
             movementTimer = 5;
             canChangeDir = false;
             whichDirection = 1;
         }
-        if (transform.position.z <= -8.6f)
+        if (transform.localPosition.z <= rangeFromZ)
         {
             movementTimer = 5;
             canChangeDir = false;
@@ -126,7 +133,7 @@ public class Ghost : MonoBehaviour
                     movementTimer = 0;
                     canChangeDir = true;
 
-                    if (transform.position.z >= 9.4f)
+                    if (transform.localPosition.z >= 9.4f)
                     {
                         movementTimer = 5;
                         canChangeDir = false;
@@ -139,7 +146,7 @@ public class Ghost : MonoBehaviour
                     movementTimer = 0;
                     canChangeDir = true;
 
-                    if (transform.position.z <= -8.6f)
+                    if (transform.localPosition.z <= -8.6f)
                     {
                         movementTimer = 5;
                         canChangeDir = false;
@@ -152,7 +159,7 @@ public class Ghost : MonoBehaviour
                     movementTimer = 0;
                     canChangeDir = true;
 
-                    if (transform.position.x <= 6.5f * iterationMultiplier)
+                    if (transform.localPosition.x <= 6.5f)
                     {
                         movementTimer = 5;
                         canChangeDir = false;
@@ -165,7 +172,7 @@ public class Ghost : MonoBehaviour
                     movementTimer = 0;
                     canChangeDir = true;
 
-                    if (transform.position.x >= 24.2f * iterationMultiplier)
+                    if (transform.localPosition.x >= 24.2f)
                     {
                         movementTimer = 5;
                         canChangeDir = false;
@@ -182,14 +189,18 @@ public class Ghost : MonoBehaviour
             respawnTimer += Time.deltaTime;
             if (!switchOnce)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - 30, transform.position.z);
+                transform.localPosition = 
+                new Vector3(transform.localPosition.x, transform.localPosition.y - 30, transform.localPosition.z);
+
                 switchOnce = true;
             }
         }
 
         if (respawnTimer >= 10)
         {
-            transform.position = new Vector3(iterationMultiplier * (Random.Range(6.5f, 24.2f)), transform.position.y + 30, Random.Range(-8.6f, 9.4f));
+            transform.localPosition = 
+            new Vector3(Random.Range(rangeFromX, rangeToX), transform.localPosition.y + 30, Random.Range(rangeFromZ, rangeToZ));
+
             respawnTimer = 0;
             respawn = false;
             switchOnce = false;

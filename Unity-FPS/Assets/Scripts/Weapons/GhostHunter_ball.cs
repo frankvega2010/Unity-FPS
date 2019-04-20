@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class GhostHunter_ball : MonoBehaviour
 {
-    public bool isFired;
     public int damage;
+    public bool isFired;
     private float lifespan;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -25,6 +20,15 @@ public class GhostHunter_ball : MonoBehaviour
                 lifespan = 0;
                 isFired = false;
             }
+        }
+    }
+
+    public void OnCollisionEnter(Collision ghost)
+    {
+        Ghost ghostEnemy = ghost.gameObject.GetComponent<Ghost>();
+        if (ghost.gameObject.tag == "Ghost")
+        {
+            ghostEnemy.isHit();
         }
     }
 }
