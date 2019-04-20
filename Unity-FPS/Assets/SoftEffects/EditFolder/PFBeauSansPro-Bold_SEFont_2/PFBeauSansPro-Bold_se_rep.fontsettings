@@ -9,7 +9,7 @@ Font:
   m_Name: PFBeauSansPro-Bold_se_rep
   serializedVersion: 5
   m_LineSpacing: 43.2
-  m_DefaultMaterial: {fileID: 2100000, guid: 4fbfa0d1c5c53d84fbfad542aaede89b, type: 2}
+  m_DefaultMaterial: {fileID: 2100000, guid: 82105fb5c7d6b7542aa42b02113e5ddd, type: 2}
   m_FontSize: 36
   m_Texture: {fileID: 2800000, guid: c33acc64cfbe3b74a810e3972472714d, type: 3}
   m_AsciiStartOffset: 0
